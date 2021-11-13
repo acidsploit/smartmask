@@ -273,7 +273,8 @@ import { assetList } from "../assetList.js";
 import { each, map, reverse } from "lodash";
 import { BigNumber } from "bignumber.js";
 
-const web3js = new Web3("wss://smartbch-wss.greyh.at");
+//const web3js = new Web3("wss://smartbch-wss.greyh.at");
+const web3js = new Web3("https://smartbch.fountainhead.cash/mainnet");
 const delay = (ms) => new Promise((resolve) => setTimeout(resolve, ms));
 
 // Debugging helpers.
@@ -408,14 +409,8 @@ export default {
 
         each(resp, (_, i) => {
           const k = Object.keys(this.assetList)[i];
-          const asset = this.assetList[k];
-          if (asset.symbol === "LAW") {
-            // LAW contract returns a long and invalid response.
-            // Must be truncated to get the right value.
-            asset.balance = this.convertValue(resp[i].substring(0,66), asset.decimals);
-          } else {
-            asset.balance = this.convertValue(resp[i], asset.decimals);
-          }
+          const asset = this.assetList[k];          
+          asset.balance = this.calcTokenAmount(resp[i].slice(0,66), asset.decimals);
           newBalances.push(asset);
         });
 
@@ -445,13 +440,9 @@ export default {
       batch.execute();
       return Promise.all(promises);
     },
-    convertValue: function (data, decimals) {
-      const convertedValue = new BigNumber(
-        new BigNumber(data)
-          .dividedBy(new BigNumber(`1e${decimals}`))
-          .toFixed(decimals)
-      );
-      return convertedValue.toString();
+    calcTokenAmount: function (value, decimals) {
+      const multiplier = Math.pow(10, Number(decimals || 0));
+      return new BigNumber(String(value)).div(multiplier);
     },
     assetIcon: function (address) {
       return "/img/assets/" + address + ".png";
