@@ -56,9 +56,13 @@
             <img class="m-2 w-8" :src="assetIcon(asset.address)" />
           </div>
           <div
-            class="m-2 text-left overflow-hidden overflow-ellipsis flex-grow"
+            class="m-2 text-right overflow-hidden overflow-ellipsis flex-auto font-mono"
           >
-            {{ assetBalanceFormatter(asset.balance) }} {{ asset.symbol }}
+            <!--{{ assetBalanceFormatter(asset.balance) }} {{ asset.symbol }}-->
+            {{ assetBalanceFormatter(asset.balance) }}
+          </div>
+          <div class="w-8 flex text-left">
+            {{ "$" + asset.symbol }}
           </div>
         </div>
       </div>
@@ -273,8 +277,8 @@ import { assetList } from "../assetList.js";
 import { each, map, reverse } from "lodash";
 import { BigNumber } from "bignumber.js";
 
-//const web3js = new Web3("wss://smartbch-wss.greyh.at");
-const web3js = new Web3("https://smartbch.fountainhead.cash/mainnet");
+const web3js = new Web3("wss://smartbch-wss.greyh.at");
+// const web3js = new Web3("https://smartbch.fountainhead.cash/mainnet");
 const delay = (ms) => new Promise((resolve) => setTimeout(resolve, ms));
 
 // Debugging helpers.
@@ -490,7 +494,8 @@ export default {
       this.showAssets();
     },
     assetBalanceFormatter: function (bal) {
-      return new BigNumber(new BigNumber(bal).toFixed(10)).toString();
+      // return new BigNumber(new BigNumber(bal).toFixed(10)).toString();
+      return new BigNumber(new BigNumber(bal).toFixed(4)).toString();
     },
     sendAction: function () {
       if (this.validateSend()) {
