@@ -289,6 +289,14 @@ const assetList = {
     balance: 0,
     address: "0x7642Df81b5BEAeEb331cc5A104bd13Ba68c34B91",
   },
+  "0x6732E55Ac3ECa734F54C26Bd8DF4eED52Fb79a6E": {
+    symbol: "JOY",
+    name: "Joystick",
+    type: "SEP20",
+    decimals: 18,
+    balance: 0,
+    address: "0x6732E55Ac3ECa734F54C26Bd8DF4eED52Fb79a6E",
+  },
 };
 
 export { assetList };
