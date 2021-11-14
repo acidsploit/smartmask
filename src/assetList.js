@@ -281,6 +281,14 @@ const assetList = {
     balance: 0,
     address: "0x9192940099fDB2338B928DE2cad9Cd1525fEa881",
   },
+  "0x7642Df81b5BEAeEb331cc5A104bd13Ba68c34B91": {
+    symbol: "CLY",
+    name: "Celery",
+    type: "SEP20",
+    decimals: 18,
+    balance: 0,
+    address: "0x7642Df81b5BEAeEb331cc5A104bd13Ba68c34B91",
+  },
 };
 
 export { assetList };
